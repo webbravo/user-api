@@ -1,0 +1,43 @@
+{
+  "name": "user-api",
+  "version": "1.0.0",
+  "description": "a simple backEnd application that exposes the following API user Registration, login and get all registered users ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webbravo/user-api.git"
+  },
+  "keywords": [
+    "user",
+    "api",
+    "login",
+    "signup"
+  ],
+  "author": "webbravo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webbravo/user-api/issues"
+  },
+  "homepage": "https://github.com/webbravo/user-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.1",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
+    "mongoose": "^5.12.7",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
