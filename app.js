@@ -13,14 +13,12 @@ app.use(
 // parse application/json
 app.use(bodyParser.json());
 
-// array to hold users
-
 // Initial Route
 app.get("/", function (req, res) {
   res.send("App works!!");
 });
 
-// Send user data
+// API v1
 app.use("/api/v1", require("./api/v1/"));
 
 // export the app

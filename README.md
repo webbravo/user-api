@@ -20,11 +20,11 @@ ExpressJS is a minimal and flexible Node.js web application framework that provi
 
 The API was hosted on Heroku and can be access via [userAPI](https://webbravo-user-api.herokuapp.com/)
 
-| S/N | HTTP VERB | ENDPOINT            | FUNCTIONALITY                         |
-| --: | --------- | ------------------- | ------------------------------------- |
-|   1 | POST      | api/v1/users/signup | Enable user to signup                 |
-|   2 | POST      | api/v1/users/login  | Enable user to login                  |
-|   3 | GET       | api/v1/users/all    | Enable log-in user to fetch all users |
+| S/N | HTTP VERB | ENDPOINT              | FUNCTIONALITY                         |
+| --: | --------- | --------------------- | ------------------------------------- |
+|   1 | POST      | api/v1/users/signup   | Enable user to signup                 |
+|   2 | POST      | api/v1/users/login    | Enable user to login                  |
+|   3 | GET       | api/v1/users/allusers | Enable log-in user to fetch all users |
 
 ### API Documentation
 

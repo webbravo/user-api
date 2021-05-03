@@ -28,8 +28,6 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.index({ username: 1 }, { unique: true });
-
 const User = mongoose.model("users", UserSchema);
 
 module.exports = User;

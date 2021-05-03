@@ -8,6 +8,50 @@ const {
   verifyPassword,
 } = require("../../../token/tokens");
 
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // 0. Check if Email and password was entered
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
+
+  // 1. Find user in array. If not exist send error
+  const foundUser = await User.findOne({ email });
+  if (!foundUser) {
+    return res.json({ result: "error", message: "User not found" }).status(401);
+  }
+
+  // 2. Compare encrypted password and see if it checks out. Send error if not
+  const passwordValid = await verifyPassword(password, foundUser.password);
+  if (passwordValid) {
+    const userInfo = {
+      id: foundUser.id,
+      email: foundUser.email,
+      firstName: foundUser.firstName,
+      lastName: foundUser.lastName,
+      occupation: foundUser.occupation,
+    };
+
+    // Create a token
+    const token = createToken(userInfo);
+
+    res
+      .json({
+        status: "success",
+        message: "Authentication successful!",
+        token,
+      })
+      .status(200);
+  } else {
+    // Invalid password
+    res.json({ status: "error", message: "Invalid password" }).status(401);
+  }
+};
+
 exports.register = async (req, res) => {
   //  Check if error
   const errors = validationResult(req);
@@ -64,44 +108,26 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res, next) => {
-  res.send("Route is working");
-};
+exports.all = async (req, res) => {
+  // 1. Get all user
+  const users = await User.find({});
 
-exports.all = async (req, res, next) => {
-  const users = [
-    {
-      firstName: "A",
-      sureName: "B",
-      email: "example@gmail.com",
-      occupation: "my job",
-    },
-    {
-      firstName: "c",
-      sureName: "f",
-      email: "example2@gmail.com",
-      occupation: "my job",
-    },
-  ];
+  // 2. Format response
+  const data = users.map((user) => {
+    return {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      occupation: user.occupation,
+    };
+  });
 
-  res
+  // 3. Send response
+  return res
     .json({
-      message: "List of all users",
+      message: "List of all user",
       status: "success",
-      data: [users],
+      data,
     })
-    .status(200);
-};
-
-const checkForUsers = async (email) => {
-  try {
-    const user = await User.findOne({
-      where: {
-        email,
-      },
-    });
-    return !user ? false : true;
-  } catch (error) {
-    console.error(error);
-  }
+    .status(201);
 };
